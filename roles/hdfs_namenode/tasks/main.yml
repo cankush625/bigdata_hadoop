@@ -31,7 +31,7 @@
       </property>
 
 - name: Formating namenode
-  comamnd: "hadoop namenode -format"
+  command: "hadoop namenode -format"
 
 - name: Starting the namenode
   command: "hadoop-daemon.sh start namenode"
