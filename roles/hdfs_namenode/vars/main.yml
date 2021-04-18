@@ -1,0 +1,2 @@
+name_dir: " {{ name_dir }} "
+name_ip: " {{ name_ip }} "

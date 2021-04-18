@@ -1,0 +1,44 @@
+- name: Installing Java Software
+  command: "rpm -ivh jdk-8u171-x64.rpm"
+
+- name: Installing Hadoop Software
+  command: "rpm -ivh hadoop-1.2.1-1.x86_64.rpm --force"
+  when: java.rc == 0
+
+- name: Creating directory for namenode
+  file:
+    path: "{{ name_dir }}"
+    state: directory
+
+- name: Configuring hdfs-site.xml file
+  blockinfile:
+    path: "/etc/hadoop/hdfs-site.xml"
+    insertafter: "<configuration>"
+    block:
+      <property>
+          <name>dfs.name.dir</name>
+          <value>{{ name_dir }}</value>
+      </property>
+
+- name: Configuring core-site.xml file
+  blockinfile:
+    path: "/etc/hadoop/core-site.xml"
+    insertafter: "<configuration>"
+    block:
+      <property>
+        <name>fs.default.name</name>
+        <value>hdfs://{{ name_ip }}:9001</value>
+      </property>
+
+- name: Formating namenode
+  comamnd: "hadoop namenode -format"
+
+- name: Starting the namenode
+  command: "hadoop-daemon.sh start namenode"
+
+- name: Checking the namenode service
+  command: "jps"
+  register: jps
+- debug:
+    var: jps.stdout_lines
+
