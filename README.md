@@ -10,13 +10,23 @@ The managed nodes should contain `jdk-8u171-x64.rpm` and `hadoop-1.2.1-1.x86_64.
 Roles
 =====
 
+hdfs_namenode
+-------------
+
+This role is created for configuring HDFS namenode. You can find more information about it in the roles/hdfs_namenode/README.md file.
+
+hdfs_datanode
+-------------
+
+This role is created for configuring HDFS datanode. You can find more information about it in the roles/hdfs_datanode/README.md file.
+
 mapred_job_tracker
------------
+------------------
 
 This role is created for configuring MapReduce job tracker. You can find more information about it in the roles/mapred_job_tracker/README.md file.
 
 mapred_task_tracker
-----------
+------------------
 
 This role is created for configuring MapReduce task tracker. You can find more information about it in the roles/mapred_task_tracker/README.md file.
 
@@ -26,6 +36,28 @@ Installation and Usage
 Download and install this collection using following command<br>
 
 `ansible-galaxy collection install cankush625.bigdata_hadoop`
+
+Example playbook for using hdfs_namenode role from this collection
+
+    - hosts: namenode
+      collections:
+        - cankush625.bigdata_hadoop
+
+      roles:
+        - role: hdfs_namenode
+          name_dir: NAMENODE_DIRECTORY
+          name_ip: NAMENODE_IP
+
+Example playbook for using hdfs_datanode role from this collection
+
+    - hosts: datanode
+      collections:
+        - cankush625.bigdata_hadoop
+
+      roles:
+        - role: hdfs_datanode
+          data_dir: DATANODE_DIRECTORY
+          name_ip: NAMENODE_IP
 
 Example playbook for using mapred_job_tracker role from this collection
 
