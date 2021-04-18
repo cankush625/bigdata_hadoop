@@ -1,0 +1,47 @@
+- name: Installing Java Software
+  command: "rpm -ivh jdk-8u171-x64.rpm"
+
+- name: Installing Hadoop Software
+  command: "rpm -ivh hadoop-1.2.1-1.x86_64.rpm --force"
+  when: java.rc == 0
+
+- name: Creating directory for datanode
+  file:
+    path: "{{ data_dir }}"
+    state: directory
+
+- name: Configuring hdfs-site.xml file
+  blockinfile:
+    path: "/etc/hadoop/hdfs-site.xml"
+    insertafter: "<configuration>"
+    block:
+      <property>
+          <name>dfs.data.dir</name>
+          <value>{{ data_dir }}</value>
+      </property>
+
+- name: Configuring core-site.xml file
+  blockinfile:
+    path: "/etc/hadoop/core-site.xml"
+    insertafter: "<configuration>"
+    block:
+      <property>
+        <name>fs.default.name</name>
+        <value>hdfs://{{ name_ip }}:9001</value>
+      </property>
+
+- name: Starting the datanode
+  command: "hadoop-daemon.sh start datanode"
+
+- name: Checking the datanode service
+  command: "jps"
+  register: jps
+- debug:
+    var: jps.stdout_lines
+
+- name: Checking HDFS cluster report
+  command: "hadoop dfsadmin -report"
+  register: hdfs_report
+- debug:
+    var: hdfs_report
+
