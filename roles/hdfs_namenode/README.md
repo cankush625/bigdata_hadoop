@@ -1,38 +1,45 @@
-Role Name
-=========
+hdfs_namenode
+=============
 
-A brief description of the role goes here.
+Ansible role for configuring HDFS namenode.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+OS: Amazon Linux 2, RHEL8 <br>
+CPU: 1 Cores <br>
+RAM: 1GiB
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+| Variable                | Required | Default |Example Variable                         |
+|-------------------------|----------|---------|-----------------------------------------|
+| name_dir                | yes      |         | name_dir: /name                         |
+| name_ip                 | yes      |         | name_ip: 192.168.43.21                  |
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+No any dependency
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+The example playbook below will show how to use this role:
 
-    - hosts: servers
+    - hosts: namenode
       roles:
-         - { role: username.rolename, x: 42 }
+        - role: hdfs_namenode
+          name_dir: NAMENODE_DIRECTORY
+          name_ip: NAMENODE_IP
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[Ankush Chavan](https://www.linkedin.com/in/ankushchavan)
