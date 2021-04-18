@@ -1,0 +1,27 @@
+- name: Installing Java Software
+  command: "rpm -ivh jdk-8u171-x64.rpm"
+  register: java
+
+- name: Installing Hadoop Software
+  command: "rpm -ivh hadoop-1.2.1-1.x86_64.rpm --force"
+  when: java.rc == 0
+
+- name: Configuring mapred-site.xml file
+  blockinfile:
+    path: "/etc/hadoop/mapred-site.xml"
+    insertafter: "<configuration>"
+    block:
+      <property>
+          <name>mapred.job.tracker</name>
+          <value>{{ job_tracker_ip }}:9002</value>
+      </property>
+
+- name: Starting the task tracker
+  command: "hadoop-daemon.sh start tasktracker"
+
+- name: Checking the tasktracker service
+  command: "jps"
+  register: jps
+- debug:
+    var: jps.stdout_lines
+

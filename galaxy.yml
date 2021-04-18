@@ -1,0 +1,33 @@
+namespace: cankush625
+
+name: bigdata_hadoop
+
+version: 1.0.0
+
+readme: README.md
+
+authors:
+- Ankush Chavan <cankush625@gmail.com>
+
+
+description: This collection contains the roles for configuring Hadoop for solving big data use cases
+
+license_file: LICENSE
+
+tags:
+- hadoop
+- bigdata
+- cluster
+- collection
+- hdfs
+- mapreduce
+
+dependencies: {}
+
+repository: https://github.com/cankush625/bigdata_hadoop
+
+documentation: http://docs.example.com
+
+homepage: http://example.com
+
+issues: https://github.com/cankush625/bigdata_hadoop
